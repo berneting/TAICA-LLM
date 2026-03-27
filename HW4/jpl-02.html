@@ -402,3 +402,42 @@
 
 </body>
 </html>
+let speechRate = 1.0;
+
+function setSpeed(rate) {
+  speechRate = rate;
+
+  document.querySelectorAll(".speed-control button").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  event.target.classList.add("active");
+}
+
+function speakJapanese(text, event) {
+  event.stopPropagation();
+
+  if (!('speechSynthesis' in window)) {
+    alert('此瀏覽器不支援語音合成功能。');
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ja-JP';
+  utterance.rate = speechRate;
+  utterance.pitch = 1.0;
+  utterance.volume = 1.0;
+
+  const voices = window.speechSynthesis.getVoices();
+  const japaneseVoice = voices.find(voice => 
+      voice.lang === 'ja-JP' || voice.lang.startsWith('ja')
+  );
+
+  if (japaneseVoice) {
+    utterance.voice = japaneseVoice;
+  }
+
+  window.speechSynthesis.speak(utterance);
+}
