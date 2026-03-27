@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日文數字翻面單字卡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 20px 48px;
+      font-family: "Noto Sans JP", "Microsoft JhengHei", Arial, sans-serif;
+      background: linear-gradient(180deg, #f4f8ff 0%, #ddeaff 100%);
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 42px;
+      color: #1f4e8c;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      font-size: 18px;
+      color: #4b5d78;
+      line-height: 1.6;
+    }
+
+    .speed-control {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 20px;
+      padding: 10px 14px;
+      background: #fff;
+      border: 2px solid #a9c7ff;
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      color: #365784;
+      font-size: 15px;
+    }
+
+    .speed-label {
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .speed-btn {
+      margin: 0;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 2px solid #5d97ff;
+      background: #ffffff;
+      color: #1f4e8c;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .speed-btn:hover {
+      transform: translateY(-1px);
+      background: #eef5ff;
+    }
+
+    .speed-btn.active {
+      background: #5d97ff;
+      color: #ffffff;
+    }
+
+    .tips {
+      display: inline-block;
+      margin-bottom: 28px;
+      padding: 10px 18px;
+      background: #fff;
+      border-radius: 999px;
+      border: 2px solid #a9c7ff;
+      font-size: 15px;
+      color: #365784;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .card-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 22px;
+    }
+
+    .flip-card {
+      background: transparent;
+      perspective: 1000px;
+      height: 290px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 22px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+      border: 3px solid #7daeff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .flip-card-front {
+      background: #ffffff;
+    }
+
+    .flip-card-back {
+      background: linear-gradient(180deg, #ffffff 0%, #eaf2ff 100%);
+      transform: rotateY(180deg);
+    }
+
+    .number-front {
+      font-size: 88px;
+      font-weight: 800;
+      line-height: 1;
+      color: #1f4e8c;
+      margin-bottom: 14px;
+    }
+
+    .number-label {
+      font-size: 22px;
+      font-weight: 700;
+      color: #5d97ff;
+      margin-bottom: 8px;
+    }
+
+    .front-note {
+      font-size: 14px;
+      color: #7a8eab;
+      letter-spacing: 1px;
+    }
+
+    .number-jp {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1f4e8c;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .number-kana {
+      font-size: 22px;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .number-en {
+      font-size: 14px;
+      color: #6e7f96;
+      font-style: italic;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .speak-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 15px;
+      background: #5d97ff;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .speak-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .speak-btn:active {
+      transform: translateY(0);
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      font-size: 14px;
+      color: #6b7d95;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .flip-card {
+        height: 260px;
+      }
+
+      .number-front {
+        font-size: 72px;
+      }
+
+      .number-jp {
+        font-size: 26px;
+      }
+
+      .number-kana {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>日文數字翻面單字卡</h1>
+  <p class="subtitle">
+    正面是大大的數字，點一下可翻到背面，學習日文數字與發音。
+  </p>
+
+  <div class="speed-control">
+    <span class="speed-label">語速：</span>
+    <button class="speed-btn" onclick="setSpeed(0.5, event)">慢速 0.5x</button>
+    <button class="speed-btn active" onclick="setSpeed(1.0, event)">普通 1.0x</button>
+    <button class="speed-btn" onclick="setSpeed(1.2, event)">快速 1.2x</button>
+  </div>
+
+  <div class="tips">點一下卡片可翻面，按發音按鈕可聽日文數字</div>
+
+  <div class="card-grid">
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">1</div>
+          <div class="number-label">一</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">一</div>
+          <div class="number-kana">いち</div>
+          <div class="number-en">ichi / one</div>
+          <button class="speak-btn" onclick="speakJapanese('いち', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">2</div>
+          <div class="number-label">二</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">二</div>
+          <div class="number-kana">に</div>
+          <div class="number-en">ni / two</div>
+          <button class="speak-btn" onclick="speakJapanese('に', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">3</div>
+          <div class="number-label">三</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">三</div>
+          <div class="number-kana">さん</div>
+          <div class="number-en">san / three</div>
+          <button class="speak-btn" onclick="speakJapanese('さん', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">4</div>
+          <div class="number-label">四</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">四</div>
+          <div class="number-kana">よん / し</div>
+          <div class="number-en">yon / shi / four</div>
+          <button class="speak-btn" onclick="speakJapanese('よん', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">5</div>
+          <div class="number-label">五</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">五</div>
+          <div class="number-kana">ご</div>
+          <div class="number-en">go / five</div>
+          <button class="speak-btn" onclick="speakJapanese('ご', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">6</div>
+          <div class="number-label">六</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">六</div>
+          <div class="number-kana">ろく</div>
+          <div class="number-en">roku / six</div>
+          <button class="speak-btn" onclick="speakJapanese('ろく', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">7</div>
+          <div class="number-label">七</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">七</div>
+          <div class="number-kana">なな / しち</div>
+          <div class="number-en">nana / shichi / seven</div>
+          <button class="speak-btn" onclick="speakJapanese('なな', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">8</div>
+          <div class="number-label">八</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">八</div>
+          <div class="number-kana">はち</div>
+          <div class="number-en">hachi / eight</div>
+          <button class="speak-btn" onclick="speakJapanese('はち', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">9</div>
+          <div class="number-label">九</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">九</div>
+          <div class="number-kana">きゅう / く</div>
+          <div class="number-en">kyuu / ku / nine</div>
+          <button class="speak-btn" onclick="speakJapanese('きゅう', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="number-front">10</div>
+          <div class="number-label">十</div>
+          <div class="front-note">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="number-jp">十</div>
+          <div class="number-kana">じゅう</div>
+          <div class="number-en">juu / ten</div>
+          <button class="speak-btn" onclick="speakJapanese('じゅう', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    日文數字學習卡 · HTML 翻面 + Web Speech API 發音 + 語速切換版本
+  </div>
+
+  <script>
+    let speechRate = 1.0;
+
+    function setSpeed(rate, event) {
+      event.stopPropagation();
+      speechRate = rate;
+
+      document.querySelectorAll('.speed-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+    }
+
+    function speakJapanese(text, event) {
+      event.stopPropagation();
+
+      if (!('speechSynthesis' in window)) {
+        alert('此瀏覽器不支援語音合成功能。');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = speechRate;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const japaneseVoice = voices.find(voice =>
+        voice.lang === 'ja-JP' || voice.lang.startsWith('ja')
+      );
+
+      if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  </script>
+
+</body>
+</html>
