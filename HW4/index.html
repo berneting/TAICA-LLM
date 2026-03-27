@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日文學習小站</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #fff7e6, #ffeef3, #eef7ff);
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      color: #2c3e50;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 3px solid transparent;
+      display: block;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-1:hover {
+      border-color: #ffb347;
+    }
+
+    .card-2:hover {
+      border-color: #ff7aa2;
+    }
+
+    .card-3:hover {
+      border-color: #7cc576;
+    }
+
+    .card-4:hover {
+      border-color: #6aa9ff;
+    }
+
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 18px;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      margin: 0 0 12px;
+      color: #2c3e50;
+    }
+
+    .card p {
+      margin: 0 0 18px;
+      color: #666;
+      line-height: 1.7;
+      font-size: 0.98rem;
+      min-height: 84px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #2c3e50;
+      color: #fff;
+      font-size: 0.95rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .intro-box {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 20px;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px 40px;
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .card p {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>日文學習小站</h1>
+    <p>
+      歡迎來到我的日文互動練習首頁<br>
+      一起用翻牌、挑戰與單字卡，輕鬆學習日文吧
+    </p>
+  </header>
+
+  <div class="container">
+    <div class="intro-box">
+      <p>
+        這裡整理了四個有趣的日文練習頁面，包含平假名挑戰、單字卡與旅遊常用語。<br>
+        請點選下方主題，開始你的日文學習之旅。
+      </p>
+    </div>
+
+    <div class="grid">
+      <a href="jpl-01.html" class="card card-1">
+        <div class="icon">あ</div>
+        <h2>日本語平假名大挑戰</h2>
+        <p>
+          從基礎平假名開始練習，用互動方式加深記憶，適合初學者反覆挑戰。
+        </p>
+        <span class="btn">開始挑戰</span>
+      </a>
+
+      <a href="jpl-02.html" class="card card-2">
+        <div class="icon">🍎</div>
+        <h2>日文水果翻面單字卡</h2>
+        <p>
+          用水果主題學習常見日文字彙，透過翻卡方式加強單字記憶與辨識能力。
+        </p>
+        <span class="btn">開始學習</span>
+      </a>
+
+      <a href="jpl-03.html" class="card card-3">
+        <div class="icon">🐻</div>
+        <h2>日文動物翻面單字卡</h2>
+        <p>
+          認識各種可愛動物的日文說法，搭配翻牌互動，讓背單字變得更有趣。
+        </p>
+        <span class="btn">開始學習</span>
+      </a>
+
+      <a href="jpl-04.html" class="card card-4">
+        <div class="icon">✈️</div>
+        <h2>日本旅遊常用語翻牌卡</h2>
+        <p>
+          收錄實用旅遊會話，包含問路、點餐、購物等常見情境，出國前很適合練習。
+        </p>
+        <span class="btn">開始練習</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 日文學習小站 | Japanese Learning Cards
+  </footer>
+</body>
+</html>
