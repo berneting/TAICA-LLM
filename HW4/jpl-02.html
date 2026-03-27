@@ -20,7 +20,7 @@
       position: relative;
     }
 
-    /* 背景裝飾 */
+    /* 背景水果掉落 */
     .bg-fruits {
       position: fixed;
       inset: 0;
@@ -29,28 +29,48 @@
       z-index: 0;
     }
 
-    .bg-fruit {
+    .falling-fruit {
       position: absolute;
-      font-size: 24px;
-      opacity: 0.10;
-      animation: floatFruit 16s ease-in-out infinite;
+      top: -80px;
+      opacity: 0.16;
+      animation-name: fruitFall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      user-select: none;
     }
 
-    .bg-fruit:nth-child(1) { top: 8%; left: 6%; animation-delay: 0s; }
-    .bg-fruit:nth-child(2) { top: 18%; right: 10%; animation-delay: 2s; }
-    .bg-fruit:nth-child(3) { top: 38%; left: 12%; animation-delay: 4s; }
-    .bg-fruit:nth-child(4) { top: 52%; right: 16%; animation-delay: 1s; }
-    .bg-fruit:nth-child(5) { top: 70%; left: 8%; animation-delay: 3s; }
-    .bg-fruit:nth-child(6) { top: 82%; right: 8%; animation-delay: 5s; }
-    .bg-fruit:nth-child(7) { top: 28%; left: 48%; animation-delay: 6s; }
-    .bg-fruit:nth-child(8) { top: 62%; right: 42%; animation-delay: 2.5s; }
+    .falling-fruit:nth-child(1)  { left: 4%;  font-size: 22px; animation-duration: 10s; animation-delay: 0s; }
+    .falling-fruit:nth-child(2)  { left: 10%; font-size: 28px; animation-duration: 12s; animation-delay: 1s; }
+    .falling-fruit:nth-child(3)  { left: 16%; font-size: 24px; animation-duration: 9s;  animation-delay: 2s; }
+    .falling-fruit:nth-child(4)  { left: 22%; font-size: 30px; animation-duration: 11s; animation-delay: 3s; }
+    .falling-fruit:nth-child(5)  { left: 28%; font-size: 20px; animation-duration: 13s; animation-delay: 4s; }
+    .falling-fruit:nth-child(6)  { left: 34%; font-size: 26px; animation-duration: 10s; animation-delay: 1.5s; }
+    .falling-fruit:nth-child(7)  { left: 40%; font-size: 22px; animation-duration: 12s; animation-delay: 2.5s; }
+    .falling-fruit:nth-child(8)  { left: 46%; font-size: 30px; animation-duration: 9.5s; animation-delay: 5s; }
+    .falling-fruit:nth-child(9)  { left: 52%; font-size: 24px; animation-duration: 11.5s; animation-delay: 0.5s; }
+    .falling-fruit:nth-child(10) { left: 58%; font-size: 20px; animation-duration: 13s; animation-delay: 3.5s; }
+    .falling-fruit:nth-child(11) { left: 64%; font-size: 28px; animation-duration: 10.5s; animation-delay: 4.5s; }
+    .falling-fruit:nth-child(12) { left: 70%; font-size: 22px; animation-duration: 12.5s; animation-delay: 1.2s; }
+    .falling-fruit:nth-child(13) { left: 76%; font-size: 26px; animation-duration: 9s; animation-delay: 2.2s; }
+    .falling-fruit:nth-child(14) { left: 82%; font-size: 24px; animation-duration: 11s; animation-delay: 5.2s; }
+    .falling-fruit:nth-child(15) { left: 88%; font-size: 30px; animation-duration: 13.5s; animation-delay: 2.8s; }
+    .falling-fruit:nth-child(16) { left: 94%; font-size: 20px; animation-duration: 10s; animation-delay: 4.8s; }
 
-    @keyframes floatFruit {
-      0%, 100% {
-        transform: translateY(0px) rotate(0deg);
+    @keyframes fruitFall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.16;
       }
       50% {
-        transform: translateY(-12px) rotate(8deg);
+        transform: translateY(50vh) translateX(12px) rotate(160deg);
+        opacity: 0.20;
+      }
+      100% {
+        transform: translateY(115vh) translateX(-12px) rotate(320deg);
+        opacity: 0;
       }
     }
 
@@ -357,14 +377,22 @@
 <body>
 
   <div class="bg-fruits">
-    <div class="bg-fruit">🍎</div>
-    <div class="bg-fruit">🍊</div>
-    <div class="bg-fruit">🍓</div>
-    <div class="bg-fruit">🍋</div>
-    <div class="bg-fruit">🍇</div>
-    <div class="bg-fruit">🍍</div>
-    <div class="bg-fruit">🍒</div>
-    <div class="bg-fruit">🍑</div>
+    <div class="falling-fruit">🍎</div>
+    <div class="falling-fruit">🍊</div>
+    <div class="falling-fruit">🍓</div>
+    <div class="falling-fruit">🍋</div>
+    <div class="falling-fruit">🍇</div>
+    <div class="falling-fruit">🍍</div>
+    <div class="falling-fruit">🍒</div>
+    <div class="falling-fruit">🍑</div>
+    <div class="falling-fruit">🍌</div>
+    <div class="falling-fruit">🍉</div>
+    <div class="falling-fruit">🍎</div>
+    <div class="falling-fruit">🍊</div>
+    <div class="falling-fruit">🍓</div>
+    <div class="falling-fruit">🍋</div>
+    <div class="falling-fruit">🍇</div>
+    <div class="falling-fruit">🍍</div>
   </div>
 
   <a href="index.html" class="home-btn">🏠 回首頁</a>
