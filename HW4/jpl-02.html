@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日文水果單字卡</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: "Noto Sans JP", "Microsoft JhengHei", sans-serif;
+      background: linear-gradient(to bottom, #fff8f0, #ffeedd);
+      color: #333;
+      text-align: center;
+    }
 
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #b35c00;
+    }
+
+    p.subtitle {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #666;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      padding: 24px 18px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 3px solid #ffd27f;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+    }
+
+    .emoji {
+      font-size: 56px;
+      margin-bottom: 12px;
+    }
+
+    .jp {
+      font-size: 32px;
+      font-weight: bold;
+      color: #c94f00;
+      margin-bottom: 8px;
+    }
+
+    .kana {
+      font-size: 22px;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    .romaji {
+      font-size: 18px;
+      color: #777;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .zh {
+      font-size: 24px;
+      color: #2c5f2d;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      .jp {
+        font-size: 28px;
+      }
+
+      .zh {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>日文水果單字卡</h1>
+  <p class="subtitle">水果五種：日文、假名、羅馬拼音、中文對照</p>
+
+  <div class="card-container">
+    <div class="card">
+      <div class="emoji">🍍</div>
+      <div class="jp">パイナップル</div>
+      <div class="kana">ぱいなっぷる</div>
+      <div class="romaji">painappuru</div>
+      <div class="zh">鳳梨</div>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🍎</div>
+      <div class="jp">りんご</div>
+      <div class="kana">りんご</div>
+      <div class="romaji">ringo</div>
+      <div class="zh">蘋果</div>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🍌</div>
+      <div class="jp">バナナ</div>
+      <div class="kana">ばなな</div>
+      <div class="romaji">banana</div>
+      <div class="zh">香蕉</div>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🍓</div>
+      <div class="jp">いちご</div>
+      <div class="kana">いちご</div>
+      <div class="romaji">ichigo</div>
+      <div class="zh">草莓</div>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🍊</div>
+      <div class="jp">オレンジ</div>
+      <div class="kana">おれんじ</div>
+      <div class="romaji">orenji</div>
+      <div class="zh">柳丁</div>
+    </div>
+  </div>
+</body>
+</html>
