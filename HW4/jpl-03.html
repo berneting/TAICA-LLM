@@ -18,23 +18,22 @@
       text-align: center;
     }
 
-    /* 回首頁按鈕 */
-    .home-btn{
+    .home-btn {
       position: fixed;
       top: 18px;
       left: 18px;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.95);
       color: #2d6a4f;
       padding: 10px 16px;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
       transition: transform 0.2s ease, background 0.2s ease;
       z-index: 999;
     }
 
-    .home-btn:hover{
+    .home-btn:hover {
       background: #eefbf3;
       transform: translateY(-2px);
     }
@@ -230,15 +229,273 @@
       color: #6d8578;
     }
 
+    @media (max-width: 768px) {
+      .home-btn {
+        top: 12px;
+        left: 12px;
+        padding: 8px 13px;
+        font-size: 14px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .flip-card {
+        height: 270px;
+      }
+
+      .animal-emoji {
+        font-size: 56px;
+      }
+
+      .animal-zh,
+      .animal-jp {
+        font-size: 26px;
+      }
+
+      .animal-kana {
+        font-size: 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
-<a href="index.html" class="home-btn">🏠 回首頁</a>
+  <a href="index.html" class="home-btn">🏠 回首頁</a>
 
-<h1>日文動物翻面單字卡</h1>
-<p class="subtitle">
-  正面看動物與中文，點一下卡片即可翻到背面，查看日文、假名與發音。
-</p>
+  <h1>日文動物翻面單字卡</h1>
+  <p class="subtitle">
+    正面看動物與中文，點一下卡片即可翻到背面，查看日文、假名與發音。
+  </p>
 
-<!-- 以下內容完全保持原本不變 -->
+  <div class="speed-control">
+    <span class="speed-label">語速：</span>
+    <button class="speed-btn" onclick="setSpeed(0.5, event)">慢速 0.5x</button>
+    <button class="speed-btn active" onclick="setSpeed(1.0, event)">普通 1.0x</button>
+    <button class="speed-btn" onclick="setSpeed(1.2, event)">快速 1.2x</button>
+  </div>
+
+  <div class="tips">點一下卡片可翻面，按發音按鈕可聽日文單字</div>
+
+  <div class="card-grid">
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐶</div>
+          <div class="animal-zh">狗</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">犬</div>
+          <div class="animal-kana">いぬ</div>
+          <div class="animal-en">dog</div>
+          <button class="speak-btn" onclick="speakJapanese('いぬ', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐱</div>
+          <div class="animal-zh">貓</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">猫</div>
+          <div class="animal-kana">ねこ</div>
+          <div class="animal-en">cat</div>
+          <button class="speak-btn" onclick="speakJapanese('ねこ', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐰</div>
+          <div class="animal-zh">兔子</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">うさぎ</div>
+          <div class="animal-kana">うさぎ</div>
+          <div class="animal-en">rabbit</div>
+          <button class="speak-btn" onclick="speakJapanese('うさぎ', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐻</div>
+          <div class="animal-zh">熊</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">熊</div>
+          <div class="animal-kana">くま</div>
+          <div class="animal-en">bear</div>
+          <button class="speak-btn" onclick="speakJapanese('くま', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🦁</div>
+          <div class="animal-zh">獅子</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">ライオン</div>
+          <div class="animal-kana">らいおん</div>
+          <div class="animal-en">lion</div>
+          <button class="speak-btn" onclick="speakJapanese('らいおん', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐘</div>
+          <div class="animal-zh">大象</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">象</div>
+          <div class="animal-kana">ぞう</div>
+          <div class="animal-en">elephant</div>
+          <button class="speak-btn" onclick="speakJapanese('ぞう', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐼</div>
+          <div class="animal-zh">熊貓</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">パンダ</div>
+          <div class="animal-kana">ぱんだ</div>
+          <div class="animal-en">panda</div>
+          <button class="speak-btn" onclick="speakJapanese('ぱんだ', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐸</div>
+          <div class="animal-zh">青蛙</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">蛙</div>
+          <div class="animal-kana">かえる</div>
+          <div class="animal-en">frog</div>
+          <button class="speak-btn" onclick="speakJapanese('かえる', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐧</div>
+          <div class="animal-zh">企鵝</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">ペンギン</div>
+          <div class="animal-kana">ぺんぎん</div>
+          <div class="animal-en">penguin</div>
+          <button class="speak-btn" onclick="speakJapanese('ぺんぎん', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="animal-emoji">🐟</div>
+          <div class="animal-zh">魚</div>
+          <div class="front-label">點我翻面</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="animal-jp">魚</div>
+          <div class="animal-kana">さかな</div>
+          <div class="animal-en">fish</div>
+          <button class="speak-btn" onclick="speakJapanese('さかな', event)">🔊 發音</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    日文動物學習卡 · HTML 翻面 + Web Speech API 發音 + 語速切換版本
+  </div>
+
+  <script>
+    let speechRate = 1.0;
+
+    function setSpeed(rate, event) {
+      event.stopPropagation();
+      speechRate = rate;
+
+      document.querySelectorAll('.speed-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+    }
+
+    function speakJapanese(text, event) {
+      event.stopPropagation();
+
+      if (!('speechSynthesis' in window)) {
+        alert('此瀏覽器不支援語音合成功能。');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = speechRate;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const japaneseVoice = voices.find(voice =>
+        voice.lang === 'ja-JP' || voice.lang.startsWith('ja')
+      );
+
+      if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  </script>
+
+</body>
+</html>
