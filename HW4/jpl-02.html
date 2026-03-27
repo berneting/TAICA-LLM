@@ -55,7 +55,7 @@
     .flip-card {
       background: transparent;
       perspective: 1000px;
-      height: 260px;
+      height: 300px;
       cursor: pointer;
     }
 
@@ -136,6 +136,28 @@
       color: #7d7d7d;
       font-style: italic;
       letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .speak-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 15px;
+      background: #ffb347;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .speak-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .speak-btn:active {
+      transform: translateY(0);
     }
 
     .footer-note {
@@ -154,7 +176,7 @@
       }
 
       .flip-card {
-        height: 230px;
+        height: 270px;
       }
 
       .fruit-emoji {
@@ -178,7 +200,7 @@
   <p class="subtitle">
     正面看中文與水果圖，點一下卡片即可翻到背面，查看日文、假名與英文。
   </p>
-  <div class="tips">點一下卡片可翻面，再點一次可翻回</div>
+  <div class="tips">點一下卡片可翻面，按發音按鈕可聽日文假名</div>
 
   <div class="card-grid">
     <div class="flip-card" onclick="this.classList.toggle('flipped')">
@@ -192,6 +214,7 @@
           <div class="fruit-jp">パイナップル</div>
           <div class="fruit-kana">ぱいなっぷる</div>
           <div class="fruit-en">pineapple</div>
+          <button class="speak-btn" onclick="speakJapanese('ぱいなっぷる', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -207,6 +230,7 @@
           <div class="fruit-jp">りんご</div>
           <div class="fruit-kana">りんご</div>
           <div class="fruit-en">apple</div>
+          <button class="speak-btn" onclick="speakJapanese('りんご', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -222,6 +246,7 @@
           <div class="fruit-jp">バナナ</div>
           <div class="fruit-kana">ばなな</div>
           <div class="fruit-en">banana</div>
+          <button class="speak-btn" onclick="speakJapanese('ばなな', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -237,6 +262,7 @@
           <div class="fruit-jp">いちご</div>
           <div class="fruit-kana">いちご</div>
           <div class="fruit-en">strawberry</div>
+          <button class="speak-btn" onclick="speakJapanese('いちご', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -252,6 +278,7 @@
           <div class="fruit-jp">オレンジ</div>
           <div class="fruit-kana">おれんじ</div>
           <div class="fruit-en">orange</div>
+          <button class="speak-btn" onclick="speakJapanese('おれんじ', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -267,6 +294,7 @@
           <div class="fruit-jp">ぶどう</div>
           <div class="fruit-kana">ぶどう</div>
           <div class="fruit-en">grape</div>
+          <button class="speak-btn" onclick="speakJapanese('ぶどう', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -282,6 +310,7 @@
           <div class="fruit-jp">すいか</div>
           <div class="fruit-kana">すいか</div>
           <div class="fruit-en">watermelon</div>
+          <button class="speak-btn" onclick="speakJapanese('すいか', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -297,6 +326,7 @@
           <div class="fruit-jp">もも</div>
           <div class="fruit-kana">もも</div>
           <div class="fruit-en">peach</div>
+          <button class="speak-btn" onclick="speakJapanese('もも', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -312,6 +342,7 @@
           <div class="fruit-jp">レモン</div>
           <div class="fruit-kana">れもん</div>
           <div class="fruit-en">lemon</div>
+          <button class="speak-btn" onclick="speakJapanese('れもん', event)">🔊 發音</button>
         </div>
       </div>
     </div>
@@ -327,14 +358,47 @@
           <div class="fruit-jp">さくらんぼ</div>
           <div class="fruit-kana">さくらんぼ</div>
           <div class="fruit-en">cherry</div>
+          <button class="speak-btn" onclick="speakJapanese('さくらんぼ', event)">🔊 發音</button>
         </div>
       </div>
     </div>
   </div>
 
   <div class="footer-note">
-    日文水果單字練習卡 · HTML 翻面版本
+    日文水果單字練習卡 · HTML 翻面 + Web Speech API 發音版本
   </div>
+
+  <script>
+    function speakJapanese(text, event) {
+      event.stopPropagation();
+
+      if (!('speechSynthesis' in window)) {
+        alert('此瀏覽器不支援語音合成功能。');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const japaneseVoice = voices.find(voice => voice.lang === 'ja-JP' || voice.lang.startsWith('ja'));
+
+      if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+  </script>
 
 </body>
 </html>
