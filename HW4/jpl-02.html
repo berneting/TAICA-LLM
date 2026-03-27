@@ -26,10 +26,53 @@
     }
 
     .subtitle {
-      margin: 0 0 28px;
+      margin: 0 0 18px;
       font-size: 18px;
       color: #6b5b53;
       line-height: 1.6;
+    }
+
+    .speed-control {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 20px;
+      padding: 10px 14px;
+      background: #fff;
+      border: 2px solid #ffd39b;
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      color: #7a5a3a;
+      font-size: 15px;
+    }
+
+    .speed-label {
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .speed-btn {
+      margin: 0;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 2px solid #ffb347;
+      background: #ffffff;
+      color: #a85a00;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .speed-btn:hover {
+      transform: translateY(-1px);
+      background: #fff4e5;
+    }
+
+    .speed-btn.active {
+      background: #ffb347;
+      color: #ffffff;
     }
 
     .tips {
@@ -200,6 +243,14 @@
   <p class="subtitle">
     正面看中文與水果圖，點一下卡片即可翻到背面，查看日文、假名與英文。
   </p>
+
+  <div class="speed-control">
+    <span class="speed-label">語速：</span>
+    <button class="speed-btn" onclick="setSpeed(0.5, event)">慢速 0.5x</button>
+    <button class="speed-btn active" onclick="setSpeed(1.0, event)">普通 1.0x</button>
+    <button class="speed-btn" onclick="setSpeed(1.2, event)">快速 1.2x</button>
+  </div>
+
   <div class="tips">點一下卡片可翻面，按發音按鈕可聽日文假名</div>
 
   <div class="card-grid">
@@ -365,10 +416,23 @@
   </div>
 
   <div class="footer-note">
-    日文水果單字練習卡 · HTML 翻面 + Web Speech API 發音版本
+    日文水果單字練習卡 · HTML 翻面 + Web Speech API 發音 + 語速切換版本
   </div>
 
   <script>
+    let speechRate = 1.0;
+
+    function setSpeed(rate, event) {
+      event.stopPropagation();
+      speechRate = rate;
+
+      document.querySelectorAll('.speed-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+    }
+
     function speakJapanese(text, event) {
       event.stopPropagation();
 
@@ -381,12 +445,14 @@
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ja-JP';
-      utterance.rate = 0.9;
+      utterance.rate = speechRate;
       utterance.pitch = 1.0;
       utterance.volume = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
-      const japaneseVoice = voices.find(voice => voice.lang === 'ja-JP' || voice.lang.startsWith('ja'));
+      const japaneseVoice = voices.find(voice =>
+        voice.lang === 'ja-JP' || voice.lang.startsWith('ja')
+      );
 
       if (japaneseVoice) {
         utterance.voice = japaneseVoice;
@@ -395,27 +461,12 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    window.speechSynthesis.onvoiceschanged = () => {
-      window.speechSynthesis.getVoices();
-    };
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
   </script>
 
-  .speed-control {
-  margin-bottom: 20px;
-}
-
-.speed-control button {
-  margin: 5px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 2px solid #ffb347;
-  background: white;
-  cursor: pointer;
-}
-
-.speed-control button.active {
-  background: #ffb347;
-  color: white;
-}
 </body>
 </html>
