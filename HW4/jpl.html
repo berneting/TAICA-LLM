@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>平假名記憶配對</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f5f5f5;
+}
 
+h1 {
+    margin-top: 20px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 100px;
+    height: 100px;
+    background: #4CAF50;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.card.flipped {
+    background: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+</style>
+</head>
+
+<body>
+
+<h1>平假名翻牌配對</h1>
+<p>配對平假名與羅馬拼音</p>
+
+<div class="game-board" id="board"></div>
+
+<script>
+const pairs = [
+    ["あ", "a"],
+    ["い", "i"],
+    ["う", "u"],
+    ["え", "e"],
+    ["お", "o"],
+    ["か", "ka"],
+    ["き", "ki"],
+    ["く", "ku"]
+];
+
+let cards = [];
+pairs.forEach(pair => {
+    cards.push({text: pair[0], match: pair[1]});
+    cards.push({text: pair[1], match: pair[0]});
+});
+
+// shuffle
+cards.sort(() => 0.5 - Math.random());
+
+const board = document.getElementById("board");
+
+let first = null;
+let second = null;
+let lock = false;
+
+cards.forEach(cardData => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.text = cardData.text;
+    card.dataset.match = cardData.match;
+
+    card.addEventListener("click", () => {
+        if (lock || card.classList.contains("flipped")) return;
+
+        card.textContent = card.dataset.text;
+        card.classList.add("flipped");
+
+        if (!first) {
+            first = card;
+        } else {
+            second = card;
+            lock = true;
+
+            setTimeout(() => {
+                if (first.dataset.match === second.dataset.text) {
+                    first = null;
+                    second = null;
+                } else {
+                    first.textContent = "";
+                    second.textContent = "";
+                    first.classList.remove("flipped");
+                    second.classList.remove("flipped");
+                    first = null;
+                    second = null;
+                }
+                lock = false;
+                checkWin();
+            }, 700);
+        }
+    });
+
+    board.appendChild(card);
+});
+
+function checkWin() {
+    const flipped = document.querySelectorAll(".flipped");
+    if (flipped.length === cards.length) {
+        setTimeout(() => {
+            alert("恭喜完成！🎉");
+        }, 300);
+    }
+}
+</script>
+
+</body>
+</html>
