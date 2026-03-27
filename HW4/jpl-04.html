@@ -1,1 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本旅遊常用語翻牌卡</title>
 
+<style>
+body{
+font-family:"Noto Sans JP","Microsoft JhengHei",sans-serif;
+background:linear-gradient(135deg,#0f2a44,#1c3d63);
+margin:0;
+padding:20px;
+color:white;
+text-align:center;
+}
+
+h1{
+font-size:36px;
+margin-bottom:10px;
+}
+
+.speed-control{
+margin-bottom:20px;
+}
+
+.speed-control button{
+margin:5px;
+padding:6px 14px;
+border-radius:20px;
+border:none;
+cursor:pointer;
+}
+
+.speed-control .active{
+background:gold;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:18px;
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+perspective:1000px;
+cursor:pointer;
+}
+
+.inner{
+position:relative;
+width:100%;
+height:260px;
+transition:transform 0.6s;
+transform-style:preserve-3d;
+}
+
+.card.flipped .inner{
+transform:rotateY(180deg);
+}
+
+.front,.back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:16px;
+padding:18px;
+box-sizing:border-box;
+border:3px solid gold;
+}
+
+.front{
+background:white;
+color:#333;
+}
+
+.back{
+background:#fff8e1;
+color:#333;
+transform:rotateY(180deg);
+overflow:auto;
+text-align:left;
+}
+
+.jp{
+font-size:24px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.romaji{
+font-size:14px;
+color:#666;
+margin-bottom:12px;
+}
+
+button.speak{
+margin-top:8px;
+padding:6px 12px;
+border-radius:10px;
+border:none;
+background:#1c3d63;
+color:white;
+cursor:pointer;
+}
+
+.example{
+margin-top:8px;
+font-size:14px;
+line-height:1.4;
+}
+</style>
+</head>
+
+<body>
+
+<h1>日本旅遊常用語</h1>
+
+<div class="speed-control">
+語速：
+<button onclick="setSpeed(0.5)">慢速</button>
+<button onclick="setSpeed(1.0)" class="active">普通</button>
+<button onclick="setSpeed(1.2)">快速</button>
+</div>
+
+<div class="grid">
+
+<!-- 1 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">お世話になっています</div>
+<div class="romaji">o-se-wa ni na-tte i-ma-su</div>
+<button class="speak" onclick="speak('お世話になっています',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：表達感謝，商務或正式場合<br>
+<div class="example">
+例句：<br>
+お世話になっています、先週の会議でのサポートありがとうございました。<br>
+（感謝您的關照，謝謝您在上週會議中的支持。）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">お願いします</div>
+<div class="romaji">o-ne-ga-i shi-ma-su</div>
+<button class="speak" onclick="speak('お願いします',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：請求協助或服務<br>
+<div class="example">
+レストランの予約をお願いしてもいいですか？<br>
+（可以麻煩您幫忙預約餐廳嗎？）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">大丈夫です</div>
+<div class="romaji">da-i-jo-u-bu de-su</div>
+<button class="speak" onclick="speak('大丈夫です',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：表示沒問題或拒絕<br>
+<div class="example">
+手伝いましょうか？大丈夫です、自分でできます。<br>
+（需要幫忙嗎？不用了，我可以自己完成。）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">もう一度言ってもらえますか？</div>
+<div class="romaji">mo-u i-chi-do i-tte mo-ra-e-ma-su ka</div>
+<button class="speak" onclick="speak('もう一度言ってもらえますか',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：請對方再說一次<br>
+<div class="example">
+ちょっと聞き取れませんでした。<br>
+（剛剛沒有聽清楚。）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">いくらですか？</div>
+<div class="romaji">i-ku-ra de-su ka</div>
+<button class="speak" onclick="speak('いくらですか',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：詢問價錢<br>
+<div class="example">
+このバッグ、いくらですか？<br>
+（這個包包多少錢？）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">初めまして</div>
+<div class="romaji">ha-ji-me ma-shi-te</div>
+<button class="speak" onclick="speak('初めまして',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：初次見面<br>
+<div class="example">
+初めまして、私はトムです。<br>
+（初次見面，我是湯姆。）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">お疲れ様です</div>
+<div class="romaji">o-tsu-ka-re-sa-ma de-su</div>
+<button class="speak" onclick="speak('お疲れ様です',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：表示辛苦了<br>
+<div class="example">
+今日もお疲れ様です！<br>
+（今天也辛苦了！）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">よろしくお願いします</div>
+<div class="romaji">yo-ro-shi-ku o-ne-ga-i shi-ma-su</div>
+<button class="speak" onclick="speak('よろしくお願いします',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：請多指教/拜託<br>
+<div class="example">
+明日のプレゼン、よろしくお願いします！<br>
+（明天的簡報拜託您了！）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 9 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">どうぞ</div>
+<div class="romaji">do-u-zo</div>
+<button class="speak" onclick="speak('どうぞ',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：請、給您<br>
+<div class="example">
+こちらの席、どうぞ。<br>
+（這邊的座位，請坐。）
+</div>
+</div>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="card" onclick="flip(this)">
+<div class="inner">
+<div class="front">
+<div class="jp">ちょっと聞きたいんですが</div>
+<div class="romaji">cho-tto ki-ki-ta-i-n de-su ga</div>
+<button class="speak" onclick="speak('ちょっと聞きたいんですが',event)">🔊 發音</button>
+</div>
+<div class="back">
+用途：禮貌詢問開場<br>
+<div class="example">
+トイレはどこですか？<br>
+（請問洗手間在哪裡？）
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+let speechRate = 1.0;
+
+function setSpeed(rate){
+speechRate = rate;
+document.querySelectorAll(".speed-control button")
+.forEach(btn=>btn.classList.remove("active"));
+event.target.classList.add("active");
+}
+
+function speak(text,event){
+event.stopPropagation();
+const utter = new SpeechSynthesisUtterance(text);
+utter.lang='ja-JP';
+utter.rate=speechRate;
+speechSynthesis.cancel();
+speechSynthesis.speak(utter);
+}
+
+function flip(card){
+card.classList.toggle("flipped");
+}
+</script>
+
+</body>
+</html>
