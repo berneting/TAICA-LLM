@@ -235,6 +235,34 @@
         font-size: 20px;
       }
     }
+.home-btn{
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  background: rgba(255,255,255,0.95);
+  color: #2d6a4f;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 999;
+}
+
+.home-btn:hover{
+  background: #eefbf3;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .home-btn{
+    top: 12px;
+    left: 12px;
+    padding: 8px 13px;
+    font-size: 14px;
+  }
+}
   </style>
 </head>
 <body>
